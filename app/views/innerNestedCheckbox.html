@@ -1,0 +1,41 @@
+<div class="innerCheckbox">
+  <!--<pre style="max-height: 300px;">{{data | json}}</pre>-->
+  <div class="radio">
+    <label>
+      <input type="radio" ng-checked="data.allOption.selected"
+             ng-model="data.allOption.selected" ng-value="true"
+             ng-change="updateSubOptions(data)"/>
+      {{data.allOption.label}}
+    </label>
+  </div>
+  <div option-radio class="radio">
+    <label>
+      <input type="radio" ng-checked="!data.allOption.selected" ng-model="data.allOption.selected"
+             ng-value="false">
+      Select
+    </label>
+  </div>
+  <input type="checkbox" name="toggle" class="toggle" id="toggle{{data.id}}" ng-if="data.id !== '0'"/>
+  <label for="toggle{{data.id}}" ng-show="!data.allOption.selected" ng-if="data.id !=='0'"></label>
+
+  <div option-panel ng-class="isScroll()"
+       ng-hide="data.allOption.selected">
+    <div ng-show="data.id == '0'">
+      <input type="text" ng-model="query" style="font-size:10px; width: 90%" placeholder="Search..."></input>
+    </div>
+    <div ng-repeat="option in data.options | showOptionFilter:query " class="checkbox">
+      <input type="checkbox" ng-checked="option.selected" ng-model="option.selected"
+             ng-change="change(option)"
+             id="{{option.value}}Option"
+             ng-show="option.display"
+             ng-click="data.allOption.selected=false;"/>
+      <label for="{{option.value}}Option" ng-show="option.display">
+        {{option.value}}
+      </label>
+
+      <div id="{{option.value}}Options" ng-show="option.display">
+      </div>
+    </div>
+  </div>
+
+</div>
